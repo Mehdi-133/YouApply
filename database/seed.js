@@ -1,6 +1,6 @@
 import "dotenv/config";
 import mysql from "mysql2/promise";
-import pool from "./connection.js";
+import pool from "../src/config/connection.js";
 import {
   companies,
   technologies,
@@ -108,7 +108,7 @@ const tech = await getTechs();
 await companiesSeed(companies);
 await offersSeed(offers);
 await technoSeed(technologies);
-await offerTechnologiesSeed(offerTechnologies)
+await offerTechnologiesSeed(offerTechnologies);
 
 console.log("data seed successfully");
 await pool.end();

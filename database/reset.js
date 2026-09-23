@@ -1,6 +1,6 @@
-import "dotenv/config"  
-import mysql from "mysql2/promise"
-import pool from "./connection.js";
+import "dotenv/config";
+import mysql from "mysql2/promise";
+import pool from "../src/config/connection.js";
 
 await pool.execute("SET FOREIGN_KEY_CHECKS = 0");
 await pool.execute("TRUNCATE TABLE offre_technologie");
@@ -11,10 +11,4 @@ await pool.execute("SET FOREIGN_KEY_CHECKS = 1");
 
 console.log("reset data successfully ");
 
-await pool.end()
-
-
-
-
-
-
+await pool.end();
