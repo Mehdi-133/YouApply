@@ -8,6 +8,7 @@
     "nodemon": "^3.1.14"
   },
   "scripts": {
-    "dev": "nodemon database/seed.js"
+    "dev": "nodemon database/seed.js",
+    "db:seed": "node database/seed.js"
   }
 }

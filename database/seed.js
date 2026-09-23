@@ -285,11 +285,13 @@ const offer = await getOffers();
 const company = await getCompany();
 const tech = await getTechs();
 
-// await offersSeed(offers);
-// await companiesSeed(companies);
-// await technoSeed(technologies);
-// console.log("techs seed successfully");
+
+
+await companiesSeed(companies);
+await offersSeed(offers);
+await technoSeed(technologies);
+console.log("data seed successfully");
 
 // console.log(company);
 // console.log(offer);
-console.log(tech);
+// console.log(tech);

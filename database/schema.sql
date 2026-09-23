@@ -143,13 +143,16 @@ select * from offre_technologie;
 
 
 --@block 
+SET FOREIGN_KEY_CHECKS = 0;
+
 TRUNCATE TABLE offre_technologie;
---@block 
 TRUNCATE TABLE offer;
---@block 
 TRUNCATE TABLE technology;
---@block 
 TRUNCATE TABLE company;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
 
 
 
