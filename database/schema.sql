@@ -140,3 +140,25 @@ SELECT * FROM offer;
 
 --@block 
 select * from offre_technologie;
+
+
+--@block 
+TRUNCATE TABLE offre_technologie;
+--@block 
+TRUNCATE TABLE offer;
+--@block 
+TRUNCATE TABLE technology;
+--@block 
+TRUNCATE TABLE company;
+
+
+
+--@block
+DELETE FROM offre_technologie;
+DELETE FROM offer;
+DELETE FROM technology;
+DELETE FROM company;
+
+ALTER TABLE company AUTO_INCREMENT = 1;
+ALTER TABLE offer AUTO_INCREMENT = 1;
+ALTER TABLE technology AUTO_INCREMENT = 1;

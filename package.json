@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^18.0.3",
+    "mysql2": "^3.24.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "scripts": {
+    "dev": "nodemon database/seed.js"
+  }
+}
