@@ -140,3 +140,28 @@ SELECT * FROM offer;
 
 --@block 
 select * from offre_technologie;
+
+
+--@block 
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE offre_technologie;
+TRUNCATE TABLE offer;
+TRUNCATE TABLE technology;
+TRUNCATE TABLE company;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+
+
+--@block
+DELETE FROM offre_technologie;
+DELETE FROM offer;
+DELETE FROM technology;
+DELETE FROM company;
+
+ALTER TABLE company AUTO_INCREMENT = 1;
+ALTER TABLE offer AUTO_INCREMENT = 1;
+ALTER TABLE technology AUTO_INCREMENT = 1;
