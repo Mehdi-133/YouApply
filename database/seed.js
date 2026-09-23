@@ -1,12 +1,8 @@
 import "dotenv/config";
 import mysql from "mysql2/promise";
+import pool from "./connection.js";
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
+
 
 const companies = [
   ["TechNova", "Digital solutions and web development company."],
@@ -291,6 +287,8 @@ await companiesSeed(companies);
 await offersSeed(offers);
 await technoSeed(technologies);
 console.log("data seed successfully");
+await pool.end()
+
 
 // console.log(company);
 // console.log(offer);

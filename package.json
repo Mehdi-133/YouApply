@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "nodemon database/seed.js",
-    "db:seed": "node database/seed.js"
+    "db:seed": "node database/seed.js",
+    "db:reset": "node database/reset.js"
   }
 }
