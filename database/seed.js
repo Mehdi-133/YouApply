@@ -1,9 +1,12 @@
 import "dotenv/config";
 import mysql from "mysql2/promise";
 import pool from "./connection.js";
-import { companies , technologies , offers } from "./seed-data.js";
-
-
+import {
+  companies,
+  technologies,
+  offers,
+  offerTechnologies,
+} from "./seed-data.js";
 
 async function getCompany() {
   const results = await pool.query("select * from company");
@@ -88,18 +91,27 @@ async function offersSeed(offers) {
   }
 }
 
+async function offerTechnologiesSeed(offerTechnologies) {
+  for (const [offerId, technologyId] of offerTechnologies) {
+    await pool.execute(
+      `INSERT INTO offre_technologie (offer_id, technology_id)
+       VALUES (?, ?)`,
+      [offerId, technologyId],
+    );
+  }
+}
+
 const offer = await getOffers();
 const company = await getCompany();
 const tech = await getTechs();
 
-
-
 await companiesSeed(companies);
 await offersSeed(offers);
 await technoSeed(technologies);
-console.log("data seed successfully");
-await pool.end()
+await offerTechnologiesSeed(offerTechnologies)
 
+console.log("data seed successfully");
+await pool.end();
 
 // console.log(company);
 // console.log(offer);

@@ -1,4 +1,4 @@
- export const companies = [
+export const companies = [
   ["TechNova", "Digital solutions and web development company."],
   ["CodeLab", "Software development and technology consulting company."],
   ["WebCraft", "Company specialized in modern web applications."],
@@ -6,7 +6,7 @@
   ["NextGen", "Technology company building innovative digital products."],
 ];
 
- export const offers = [
+export const offers = [
   [
     1,
     "Frontend Developer Intern",
@@ -186,4 +186,16 @@ export const technologies = [
   "MySQL",
   "Git",
   "Figma",
+];
+
+export const offerTechnologies = [
+  [1, 1],
+  [1, 2],
+  [1, 3],
+
+  [2, 3],
+  [2, 4],
+
+  [3, 5],
+  [3, 6],
 ];
