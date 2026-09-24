@@ -1,21 +1,21 @@
 <%
-    const statusDetails = {
-        published: {
-            label: "Publiée",
-            badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-100",
-            dotClass: "bg-emerald-500"
-        },
-        draft: {
-            label: "Brouillon",
-            badgeClass: "bg-amber-50 text-amber-700 border-amber-100",
-            dotClass: "bg-amber-500"
-        },
-        closed: {
-            label: "Clôturée",
-            badgeClass: "bg-slate-100 text-slate-600 border-slate-200",
-            dotClass: "bg-slate-400"
-        }
-    };
+const statusDetails = {
+published: {
+label: "Publiée",
+badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-100",
+dotClass: "bg-emerald-500"
+},
+draft: {
+label: "Brouillon",
+badgeClass: "bg-amber-50 text-amber-700 border-amber-100",
+dotClass: "bg-amber-500"
+},
+closed: {
+label: "Clôturée",
+badgeClass: "bg-slate-100 text-slate-600 border-slate-200",
+dotClass: "bg-slate-400"
+}
+};
 %>
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,18 +31,22 @@
         <main
             class="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
 
-            <section class="page-hero mb-6 md:mb-8" aria-labelledby="page-title">
+            <section class="page-hero mb-6 md:mb-8"
+                aria-labelledby="page-title">
                 <div class="page-hero__content">
                     <p class="page-hero__eyebrow">Back-office</p>
-                    <h1 id="page-title" class="page-hero__title">Administration des offres</h1>
-                    <p class="page-hero__description">Suivez les annonces et gérez les opportunités proposées aux étudiants.</p>
+                    <h1 id="page-title" class="page-hero__title">Administration
+                        des offres</h1>
+                    <p class="page-hero__description">Suivez les annonces et
+                        gérez les opportunités proposées aux étudiants.</p>
                 </div>
                 <span class="page-hero__badge">Gestion des offres</span>
             </section>
 
             <!-- Page Actions -->
             <div class="flex justify-end mb-6 md:mb-8">
-                <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                <div
+                    class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
                     <button type="button"
                         class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors shadow-sm">
                         <svg class="w-4 h-4 text-slate-400" fill="none"
@@ -213,158 +217,199 @@
                         <thead
                             class="hidden lg:table-header-group bg-slate-50/80 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200">
                             <tr>
-                                <th scope="col" class="px-6 py-4">Intitulé du poste & Référence</th>
-                                <th scope="col" class="px-6 py-4">Entreprise & Ville</th>
+                                <th scope="col" class="px-6 py-4">Intitulé du
+                                    poste & Référence</th>
+                                <th scope="col" class="px-6 py-4">Entreprise &
+                                    Ville</th>
                                 <th scope="col" class="px-6 py-4">Type</th>
-                                <th scope="col" class="px-6 py-4">Date de soumission</th>
+                                <th scope="col" class="px-6 py-4">Date de
+                                    soumission</th>
                                 <th scope="col" class="px-6 py-4">Statut</th>
-                                <th scope="col" class="px-6 py-4 text-right">Actions rapides</th>
+                                <th scope="col"
+                                    class="px-6 py-4 text-right">Actions
+                                    rapides</th>
                             </tr>
                         </thead>
 
                         <tbody
                             class="flex flex-col gap-4 lg:table-row-group lg:gap-0 lg:divide-y lg:divide-slate-100 text-sm">
                             <% offers.forEach((offer) => { %>
-                                <%
-                                    const status = statusDetails[offer.status] || {
-                                        label: offer.status,
-                                        badgeClass: "bg-slate-100 text-slate-600 border-slate-200",
-                                        dotClass: "bg-slate-400"
-                                    };
-                                    const publishedDate = new Date(offer.published_at);
-                                    const formattedDate = Number.isNaN(publishedDate.getTime())
-                                        ? "Date inconnue"
-                                        : publishedDate.toLocaleDateString("fr-FR", {
-                                            day: "2-digit",
-                                            month: "short",
-                                            year: "numeric"
-                                        });
-                                    const mobileDate = Number.isNaN(publishedDate.getTime())
-                                        ? "Date inconnue"
-                                        : publishedDate.toLocaleDateString("fr-FR", {
-                                            day: "2-digit",
-                                            month: "short"
-                                        });
-                                    const typeClass = offer.opp_type === "alternance"
-                                        ? "bg-teal-100 text-teal-700"
-                                        : "bg-amber-100 text-amber-800";
-                                %>
-                                <tr
-                                    class="flex flex-col lg:table-row bg-white border border-slate-200 lg:border-none rounded-2xl lg:rounded-none p-4 lg:p-0 shadow-sm lg:shadow-none hover:bg-slate-50 transition-colors group">
-                                    <td
-                                        class="block lg:table-cell lg:px-6 lg:py-4 mb-3 lg:mb-0">
-                                        <div class="flex items-start justify-between">
-                                            <div>
-                                                <div
-                                                    class="font-bold text-slate-800 text-base md:text-sm pr-4"><%= offer.job_title %></div>
-                                                <div
-                                                    class="text-[11px] text-slate-400 font-bold uppercase mt-1 tracking-wider">REF : OFF-<%= String(offer.id).padStart(4, "0") %></div>
-                                            </div>
-                                            <div class="lg:hidden flex-shrink-0">
+                            <%
+                            const status = statusDetails[offer.status] || {
+                            label: offer.status,
+                            badgeClass:
+                            "bg-slate-100 text-slate-600 border-slate-200",
+                            dotClass: "bg-slate-400"
+                            };
+                            const publishedDate = new Date(offer.published_at);
+                            const formattedDate =
+                            Number.isNaN(publishedDate.getTime())
+                            ? "Date inconnue"
+                            : publishedDate.toLocaleDateString("fr-FR", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric"
+                            });
+                            const mobileDate =
+                            Number.isNaN(publishedDate.getTime())
+                            ? "Date inconnue"
+                            : publishedDate.toLocaleDateString("fr-FR", {
+                            day: "2-digit",
+                            month: "short"
+                            });
+                            const typeClass = offer.opp_type === "alternance"
+                            ? "bg-teal-100 text-teal-700"
+                            : "bg-amber-100 text-amber-800";
+                            %>
+                            <tr
+                                class="flex flex-col lg:table-row bg-white border border-slate-200 lg:border-none rounded-2xl lg:rounded-none p-4 lg:p-0 shadow-sm lg:shadow-none hover:bg-slate-50 transition-colors group">
+                                <td
+                                    class="block lg:table-cell lg:px-6 lg:py-4 mb-3 lg:mb-0">
+                                    <div
+                                        class="flex items-start justify-between">
+                                        <div>
+                                            <div
+                                                class="font-bold text-slate-800 text-base md:text-sm pr-4"><%=
+                                                offer.job_title %></div>
+                                            <div
+                                                class="text-[11px] text-slate-400 font-bold uppercase mt-1 tracking-wider">REF
+                                                : OFF-<%=
+                                                String(offer.id).padStart(4,
+                                                "0") %></div>
+                                        </div>
+                                        <div class="lg:hidden flex-shrink-0">
+                                            <span
+                                                class="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold border <%= status.badgeClass %>">
                                                 <span
-                                                    class="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold border <%= status.badgeClass %>">
-                                                    <span class="w-1.5 h-1.5 rounded-full <%= status.dotClass %>"></span><%= status.label %>
-                                                </span>
+                                                    class="w-1.5 h-1.5 rounded-full <%= status.dotClass %>"></span><%=
+                                                status.label %>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td
+                                    class="block lg:table-cell lg:px-6 lg:py-4 mb-4 lg:mb-0">
+                                    <div
+                                        class="flex items-center justify-between lg:block">
+                                        <div>
+                                            <div
+                                                class="font-bold text-slate-700"><%=
+                                                offer.company.name %></div>
+                                            <div
+                                                class="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
+                                                <svg
+                                                    class="w-3.5 h-3.5 text-slate-400"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"><path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                                <%= offer.location %>
                                             </div>
                                         </div>
-                                    </td>
-
-                                    <td
-                                        class="block lg:table-cell lg:px-6 lg:py-4 mb-4 lg:mb-0">
-                                        <div class="flex items-center justify-between lg:block">
-                                            <div>
-                                                <div class="font-bold text-slate-700"><%= offer.company.name %></div>
-                                                <div
-                                                    class="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
-                                                    <svg class="w-3.5 h-3.5 text-slate-400"
-                                                        fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24"><path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                                    <%= offer.location %>
-                                                </div>
-                                            </div>
-                                            <div class="lg:hidden">
-                                                <span
-                                                    class="<%= typeClass %> text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider"><%= offer.opp_type %></span>
-                                            </div>
+                                        <div class="lg:hidden">
+                                            <span
+                                                class="<%= typeClass %> text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider"><%=
+                                                offer.opp_type %></span>
                                         </div>
-                                    </td>
+                                    </div>
+                                </td>
 
-                                    <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
+                                <td
+                                    class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="<%= typeClass %> text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"><%=
+                                        offer.opp_type %></span>
+                                </td>
+                                <td
+                                    class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
+                                    <div
+                                        class="font-semibold text-slate-700"><%=
+                                        formattedDate %></div>
+                                    <div
+                                        class="text-xs text-slate-400 mt-0.5">Publication</div>
+                                </td>
+                                <td
+                                    class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border <%= status.badgeClass %>">
                                         <span
-                                            class="<%= typeClass %> text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"><%= offer.opp_type %></span>
-                                    </td>
-                                    <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
-                                        <div class="font-semibold text-slate-700"><%= formattedDate %></div>
-                                        <div class="text-xs text-slate-400 mt-0.5">Publication</div>
-                                    </td>
-                                    <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border <%= status.badgeClass %>">
-                                            <span class="w-1.5 h-1.5 rounded-full <%= status.dotClass %>"></span>
-                                            <%= status.label %>
-                                        </span>
-                                    </td>
+                                            class="w-1.5 h-1.5 rounded-full <%= status.dotClass %>"></span>
+                                        <%= status.label %>
+                                    </span>
+                                </td>
 
-                                    <td
-                                        class="block lg:table-cell lg:px-6 lg:py-4 pt-3 lg:pt-4 border-t border-slate-100 lg:border-0 text-right">
-                                        <div class="flex items-center justify-between lg:justify-end gap-2">
-                                            <div class="text-xs text-slate-400 font-medium lg:hidden">
-                                                Soumis le <%= mobileDate %>
-                                            </div>
-                                            <div class="flex items-center gap-1 text-slate-400">
-                                                <button type="button"
-                                                    class="p-1.5 lg:p-2 hover:text-blue-900 hover:bg-blue-50 rounded-lg transition-colors"
-                                                    title="Éditer">
-                                                    <svg class="w-4 h-4 lg:w-5 lg:h-5"
-                                                        fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24"><path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                                                </button>
-                                                <button type="button"
-                                                    class="p-1.5 lg:p-2 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
-                                                    title="Masquer/Bloquer">
-                                                    <svg class="w-4 h-4 lg:w-5 lg:h-5"
-                                                        fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24"><path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
-                                                </button>
-                                                <button type="button"
-                                                    class="p-1.5 lg:p-2 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                                    title="Supprimer">
-                                                    <svg class="w-4 h-4 lg:w-5 lg:h-5"
-                                                        fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24"><path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                                </button>
-                                            </div>
+                                <td
+                                    class="block lg:table-cell lg:px-6 lg:py-4 pt-3 lg:pt-4 border-t border-slate-100 lg:border-0 text-right">
+                                    <div
+                                        class="flex items-center justify-between lg:justify-end gap-2">
+                                        <div
+                                            class="text-xs text-slate-400 font-medium lg:hidden">
+                                            Soumis le <%= mobileDate %>
                                         </div>
-                                    </td>
-                                </tr>
+                                        <div
+                                            class="flex items-center gap-1 text-slate-400">
+                                            <a type="button"
+                                                href="offers/<%= offer.id  %>/edit"
+                                                class="p-1.5 lg:p-2 hover:text-blue-900 hover:bg-blue-50 rounded-lg transition-colors"
+                                                title="Éditer">
+                                                <svg
+                                                    class="w-4 h-4 lg:w-5 lg:h-5"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"><path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                            </a>
+                                            <button type="button"
+                                                class="p-1.5 lg:p-2 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
+                                                title="Masquer/Bloquer">
+                                                <svg
+                                                    class="w-4 h-4 lg:w-5 lg:h-5"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"><path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+                                            </button>
+                                            <button type="button"
+                                                class="p-1.5 lg:p-2 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                title="Supprimer">
+                                                <svg
+                                                    class="w-4 h-4 lg:w-5 lg:h-5"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"><path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                             <% }) %>
 
                             <% if (offers.length === 0) { %>
-                                <tr class="bg-white border border-slate-200 lg:border-none rounded-2xl lg:rounded-none">
-                                    <td colspan="6" class="px-6 py-10 text-center text-slate-500">
-                                        Aucune offre enregistrée.
-                                    </td>
-                                </tr>
+                            <tr
+                                class="bg-white border border-slate-200 lg:border-none rounded-2xl lg:rounded-none">
+                                <td colspan="6"
+                                    class="px-6 py-10 text-center text-slate-500">
+                                    Aucune offre enregistrée.
+                                </td>
+                            </tr>
                             <% } %>
                         </tbody>
                     </table>
@@ -372,12 +417,16 @@
 
                 <div
                     class="bg-white rounded-2xl lg:rounded-none lg:rounded-b-2xl border border-slate-200 lg:border-t lg:border-x-0 lg:border-b-0 shadow-sm lg:shadow-none mt-4 lg:mt-0 p-4 md:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div class="text-xs sm:text-sm text-slate-500 text-center md:text-left">
-                        Affichage de <span class="font-bold text-slate-700"><%= offers.length %></span>
+                    <div
+                        class="text-xs sm:text-sm text-slate-500 text-center md:text-left">
+                        Affichage de <span class="font-bold text-slate-700"><%=
+                            offers.length %></span>
                         offre<%= offers.length > 1 ? "s" : "" %>
-                        <span class="hidden sm:inline mx-2 text-slate-300">•</span>
                         <span
-                            class="block sm:inline mt-1 sm:mt-0 text-[11px] sm:text-xs text-slate-400">Synchronisé avec MySQL</span>
+                            class="hidden sm:inline mx-2 text-slate-300">•</span>
+                        <span
+                            class="block sm:inline mt-1 sm:mt-0 text-[11px] sm:text-xs text-slate-400">Synchronisé
+                            avec MySQL</span>
                     </div>
                     <nav aria-label="Pagination"
                         class="flex items-center justify-center gap-1">

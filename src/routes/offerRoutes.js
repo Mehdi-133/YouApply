@@ -6,7 +6,9 @@ const offerRoutes = express.Router();
 
 offerRoutes.get("/offers", offerController.index);
 offerRoutes.get("/offers/new", offerController.new);
-offerRoutes.post("/offers", offerController.create);
+offerRoutes.post("/offers", adminController.create);
 offerRoutes.get("/admin", adminController.index);
+offerRoutes.get("/offers/:id/edit", adminController.edit);
+offerRoutes.post("/offers/:id/edit" , adminController.update)
 
 export default offerRoutes;

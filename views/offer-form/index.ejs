@@ -46,7 +46,7 @@
 
             <!-- Offer Form -->
             <form id="offer-form"
-                action="/offers"
+                action="<%= offer ? `/offers/${offer.id}/edit` : '/offers' %>"
                 method="post"
                 class="space-y-6 md:space-y-8">
 
@@ -81,7 +81,8 @@
                                     value="stage"
                                     class="mt-0.5 w-4 h-4 text-blue-700 border-slate-300 focus:ring-blue-700"
                                     required
-                                    checked>
+                                    <%=!offer || offer.opp_type === "stage" ?
+                                    "checked" : "" %>>
                                 <div class="flex-1">
                                     <div
                                         class="flex items-center justify-between mb-1">
@@ -101,7 +102,9 @@
                                 class="offer-type-card relative flex items-start gap-4 p-4 md:p-5 rounded-xl cursor-pointer transition-all">
                                 <input type="radio" name="opp_type"
                                     value="alternance"
-                                    class="mt-0.5 w-4 h-4 text-blue-700 border-slate-300 focus:ring-blue-700">
+                                    class="mt-0.5 w-4 h-4 text-blue-700 border-slate-300 focus:ring-blue-700"
+                                    <%=offer?.opp_type === "alternance" ?
+                                    "checked" : "" %>>
                                 <div class="flex-1">
                                     <div
                                         class="flex items-center justify-between mb-1">
@@ -146,6 +149,7 @@
                                 </div>
                                 <input id="company" name="company" type="text"
                                     required
+                                    value="<%= offer?.company?.name || '' %>"
                                     placeholder="ex. Acme Technologies SAS"
                                     class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                             </div>
@@ -173,6 +177,7 @@
                                 </div>
                                 <input id="location" name="location" type="text"
                                     required
+                                    value="<%= offer?.location || '' %>"
                                     placeholder="ex. Lyon (69002) ou Télétravail"
                                     class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                             </div>
@@ -196,6 +201,7 @@
                                 </div>
                                 <input id="job_title" name="job_title"
                                     type="text" required
+                                    value="<%= offer?.job_title || '' %>"
                                     placeholder="ex. Développeur Full-Stack"
                                     class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                             </div>
@@ -248,9 +254,15 @@
                             <select id="work_mode" name="work_mode" required
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white cursor-pointer transition-all">
                                 <option value>Sélectionner un mode</option>
-                                <option value="presentiel">Présentiel</option>
-                                <option value="hybride">Hybride</option>
-                                <option value="remote">Télétravail</option>
+                                <option value="presentiel" <%=offer?.work_mode
+                                    === "presentiel" ? "selected" : ""
+                                    %>>Présentiel</option>
+                                <option value="hybride" <%=offer?.work_mode ===
+                                    "hybride" ? "selected" : ""
+                                    %>>Hybride</option>
+                                <option value="remote" <%=offer?.work_mode ===
+                                    "remote" ? "selected" : ""
+                                    %>>Télétravail</option>
                             </select>
                         </div>
                         <div>
@@ -331,7 +343,7 @@
                             <textarea id="description" name="description"
                                 rows="3" required
                                 placeholder="Présentez brièvement vos activités, l'équipe technique..."
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"><%= offer?.company?.description || '' %></textarea>
                         </div>
 
                         <!-- Missions -->
@@ -349,7 +361,7 @@
                             <textarea id="missions" name="missions" rows="4"
                                 required
                                 placeholder="- Conception et développement de nouvelles fonctionnalités back/front&#10;- Participation aux réunions de sprint agile..."
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"><%= offer?.missions || '' %></textarea>
                         </div>
 
                         <!-- Profil -->
@@ -366,7 +378,7 @@
                             <textarea id="profile" name="profile" rows="3"
                                 required
                                 placeholder="Étudiant en Bac+3 à Bac+5 en Informatique. Curieux, autonome..."
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"><%= offer?.profile || '' %></textarea>
                         </div>
 
                         <!-- Arrays in offers.json are represented by groups of checkboxes. -->
@@ -524,6 +536,7 @@
                                         class="text-red-500">*</span></label>
                                 <input id="start_date" name="start_date"
                                     type="date" required
+                                    value="<%= offer?.start_date || '' %>"
                                     class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                             </div>
                             <div>
@@ -537,13 +550,27 @@
                                         class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-4 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white appearance-none cursor-pointer transition-all">
                                         <option value>Sélectionner une
                                             durée</option>
-                                        <option value="1 mois">1 mois</option>
-                                        <option value="2 mois">2 mois</option>
-                                        <option value="3 mois">3 mois</option>
-                                        <option value="4 mois">4 mois</option>
-                                        <option value="6 mois">6 mois</option>
-                                        <option value="12 mois">12 mois</option>
-                                        <option value="24 mois">24 mois</option>
+                                        <option value="1 mois"
+                                            <%=offer?.duration === "1 mois" ?
+                                            "selected" : "" %>>1 mois</option>
+                                        <option value="2 mois"
+                                            <%=offer?.duration === "2 mois" ?
+                                            "selected" : "" %>>2 mois</option>
+                                        <option value="3 mois"
+                                            <%=offer?.duration === "3 mois" ?
+                                            "selected" : "" %>>3 mois</option>
+                                        <option value="4 mois"
+                                            <%=offer?.duration === "4 mois" ?
+                                            "selected" : "" %>>4 mois</option>
+                                        <option value="6 mois"
+                                            <%=offer?.duration === "6 mois" ?
+                                            "selected" : "" %>>6 mois</option>
+                                        <option value="12 mois"
+                                            <%=offer?.duration === "12 mois" ?
+                                            "selected" : "" %>>12 mois</option>
+                                        <option value="24 mois"
+                                            <%=offer?.duration === "24 mois" ?
+                                            "selected" : "" %>>24 mois</option>
                                     </select>
                                     <div
                                         class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
@@ -573,6 +600,7 @@
                                                 d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                     </div>
                                     <input id="salary" name="salary" type="text"
+                                        value="<%= offer?.salary || '' %>"
                                         placeholder="ex. Selon barème légal ou 850 € / mois"
                                         class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                                 </div>
@@ -633,6 +661,7 @@
                                 </div>
                                 <input id="email" name="email" type="email"
                                     required
+                                    value="<%= offer?.email || '' %>"
                                     placeholder="recrutement@entreprise.com"
                                     class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                             </div>
