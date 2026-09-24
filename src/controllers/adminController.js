@@ -1,6 +1,7 @@
 import OfferRepo from "../repositories/offerRepository.js";
 import CompanyRepo from "../repositories/companyRepository.js";
 import { log } from "node:console";
+import offerRepository from "../repositories/offerRepository.js";
 
 class AdminController {
   async index(req, res) {
@@ -56,13 +57,11 @@ class AdminController {
   }
 
   async edit(req, res) {
-
     // console.log(req.params.id);
 
     try {
       const offer = await OfferRepo.findById(req.params.id);
       console.log(offer);
-
 
       if (!offer) {
         return res.status(404).send("Offer not found");
@@ -115,6 +114,21 @@ class AdminController {
       res.redirect("/admin");
     } catch (error) {
       console.error("error updating offer:", error);
+      res.status(500).send("Server error");
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const deletedOffer = await OfferRepo.delete(req.params.id);
+
+      if (!deletedOffer) {
+        return res.status(404).send(" not found");
+      }
+
+      res.redirect("/admin");
+    } catch (error) {
+      console.error("Offer not deleted:", error);
       res.status(500).send("Server error");
     }
   }
