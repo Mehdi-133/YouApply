@@ -2,13 +2,16 @@
   "type": "module",
   "dependencies": {
     "dotenv": "^18.0.3",
-    "mysql2": "^3.24.4"
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "mysql2": "^3.24.4",
+    "sequelize": "^6.37.8"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
   },
   "scripts": {
-    "dev": "nodemon database/seed.js",
+    "dev": "nodemon src/app.js",
     "db:seed": "node database/seed.js",
     "db:reset": "node database/reset.js"
   }
