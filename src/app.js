@@ -13,7 +13,8 @@ app.use(express.static("public"));
 app.use(urlencoded({extended: true}))
 
 
-app.use("/offers", offerRoutes);
+app.use("/", offerRoutes);
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
