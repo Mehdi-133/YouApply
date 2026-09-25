@@ -1,6 +1,5 @@
 import OfferRepo from "../repositories/offerRepository.js";
 import CompanyRepo from "../repositories/companyRepository.js";
-import { log } from "node:console";
 import offerRepository from "../repositories/offerRepository.js";
 
 class AdminController {
@@ -20,6 +19,10 @@ class AdminController {
   async create(req, res) {
     try {
       let company = await CompanyRepo.findByName(req.body.company);
+
+      const technologyIds = req.body.technologies
+        ? [].concat(req.body.technologies)
+        : [];
 
       if (!company) {
         company = await CompanyRepo.create({
@@ -47,12 +50,14 @@ class AdminController {
 
       const offer = await OfferRepo.create(offerData);
 
-      console.log("Offer created:", offer.id);
+      if (technologyIds.length > 0) {
+        await offer.addTechnologies(technologyIds);
+      }
 
       res.redirect("/offers");
     } catch (error) {
       console.error("Error creating offer:", error);
-      res.status(500).send("server error");
+      res.status(500).send("Server error");
     }
   }
 
