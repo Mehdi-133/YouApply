@@ -1,11 +1,11 @@
 import express from "express";
 import offerRoutes from "./routes/offerRoutes.js";
 import { urlencoded } from "body-parser";
+import methodOverride from "method-override";
 
 const app = express();
 const PORT = 3000;
 
-import methodOverride from "method-override";
 
 app.use(methodOverride("_method"));
 

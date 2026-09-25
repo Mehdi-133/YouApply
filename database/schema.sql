@@ -88,7 +88,7 @@ VALUES ('Test', 'Company used for database tests auto increment ');
 
 --@block
 INSERT INTO technology (name)
-VALUES ('JavaScript');
+VALUES ('Node');
 
 
 --@block
