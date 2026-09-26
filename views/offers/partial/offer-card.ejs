@@ -13,10 +13,8 @@
 
         </div>
 
-
         <!-- Offer content -->
         <div class="flex-1 w-full min-w-0">
-
 
             <!-- Top -->
             <div class="flex items-start justify-between gap-4">
@@ -32,7 +30,6 @@
 
                     </h2>
 
-
                     <!-- Contract type -->
                     <div class="flex items-center gap-2 mb-2">
 
@@ -47,36 +44,30 @@
 
                     </div>
 
-
                     <!-- Meta information -->
                     <div
                         class="flex flex-wrap items-center
                                gap-x-3 gap-y-2
                                text-sm font-medium text-slate-700">
 
-
                         <!-- Company -->
                         <span>
                             <%= offer.company.name %>
                         </span>
 
-
                         <span
                             class="w-1 h-1 rounded-full bg-slate-400">
                         </span>
-
 
                         <!-- Location -->
                         <span class="text-slate-500">
                             <%= offer.location %>
                         </span>
 
-
                         <span
                             class="hidden sm:inline
                                    w-1 h-1 rounded-full bg-slate-400">
                         </span>
-
 
                         <!-- Publication date -->
                         <span class="text-slate-500 hidden sm:inline">
@@ -84,14 +75,13 @@
                             Publié le
 
                             <%= new Date(offer.published_at)
-                                .toLocaleDateString("fr-FR") %>
+                            .toLocaleDateString("fr-FR") %>
 
                         </span>
 
                     </div>
 
                 </div>
-
 
                 <!-- Follow button -->
                 <button
@@ -121,7 +111,6 @@
 
             </div>
 
-
             <!-- Description -->
             <p
                 class="mt-4 text-sm text-slate-600
@@ -131,14 +120,12 @@
 
             </p>
 
-
             <!-- Footer -->
             <div
                 class="mt-5 flex flex-col md:flex-row
                        items-start md:items-center
                        justify-between gap-5
                        pt-5 border-t border-slate-100">
-
 
                 <!-- Technologies -->
                 <div class="flex flex-wrap gap-2">
@@ -147,7 +134,6 @@
 
                 </div>
 
-
                 <!-- Salary + link -->
                 <div
                     class="flex flex-col sm:flex-row
@@ -155,17 +141,15 @@
                            gap-4 w-full md:w-auto
                            justify-between md:justify-end">
 
-
                     <% if (offer.salary) { %>
 
-                        <span class="text-sm font-bold text-blue-700">
+                    <span class="text-sm font-bold text-blue-700">
 
-                            <%= offer.salary %>
+                        <%= offer.salary %>
 
-                        </span>
+                    </span>
 
                     <% } %>
-
 
                     <a
                         href="/offers/<%= offer.id%>/show"
