@@ -12,6 +12,7 @@ class OfferController {
 
       res.render("offers/index", {
         offers: offers,
+        currentPage: "offers",
       });
     } catch (error) {
       console.error("error:", error);
@@ -26,6 +27,7 @@ class OfferController {
       res.render("offer-form/index", {
         offer: null,
         technologies,
+        currentPage: "create-offer",
       });
     } catch (error) {
       console.error(" loading error ", error);

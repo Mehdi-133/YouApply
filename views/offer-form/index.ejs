@@ -391,10 +391,18 @@
                                 les technologies utiles pour ce poste.</p>
                             <div class="flex flex-wrap gap-2">
                                 <% technologies.forEach((technology) => { %>
+
+                                <% const isChecked = offer?.technologies?.some(
+                                (assignedTechnologies => assignedTechnologies.id
+                                === technology.id)
+                                ) %>
                                 <label class="offer-choice"><input
                                         type="checkbox" name="technologies"
                                         value="<%= technology.id %>"
-                                        class="sr-only"><span><%= technology.name %></span></label>
+                                        <%=isChecked ? "checked" : "" %>
+
+                                    class="sr-only"><span><%= technology.name
+                                        %></span></label>
                                 <% }) %>
                             </div>
                         </fieldset>
@@ -746,7 +754,7 @@
                                         stroke-linecap="round"
                                         stroke-linejoin="round" stroke-width="2"
                                         d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                                Publier 
+                                Publier
                             </button>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import OfferRepo from "../repositories/offerRepository.js";
 import CompanyRepo from "../repositories/companyRepository.js";
-import offerRepository from "../repositories/offerRepository.js";
+import TechnologyRepo from "../repositories/technologyRepository.js";
 
 class AdminController {
   async index(req, res) {
@@ -9,6 +9,7 @@ class AdminController {
 
       res.render("admin/index", {
         offers,
+        currentPage: "admin",
       });
     } catch (error) {
       console.error("Error loading admin offers:", error);
@@ -71,8 +72,12 @@ class AdminController {
       if (!offer) {
         return res.status(404).send("Offer not found");
       }
+
+      const technologies = await TechnologyRepo.findAll();
       res.render("offer-form/index", {
         offer,
+        technologies,
+        currentPage: "admin",
       });
     } catch (error) {
       console.error("cant edit this offer", error);
@@ -83,6 +88,10 @@ class AdminController {
   async update(req, res) {
     try {
       const id = req.params.id;
+
+      const technologyIds = req.body.technologies
+        ? [].concat(req.body.technologies)
+        : [];
 
       const offerData = {
         job_title: req.body.job_title,
@@ -109,6 +118,7 @@ class AdminController {
       if (!offer) {
         return res.status(404).send("Offer not found");
       }
+      await offer.setTechnologies(technologyIds);
 
       const company = await CompanyRepo.update(offer.company_id, companyData);
 

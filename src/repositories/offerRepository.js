@@ -1,4 +1,4 @@
-import { Company, Offer } from "../models/index.js";
+import { Company, Offer, Technology } from "../models/index.js";
 
 class OfferRepo {
   async findAll() {
@@ -18,10 +18,16 @@ class OfferRepo {
 
   async findById(id) {
     return await Offer.findByPk(id, {
-      include: {
-        model: Company,
-        as: "company",
-      },
+      include: [
+        {
+          model: Company,
+          as: "company",
+        },
+        {
+          model: Technology,
+          as: "technologies",
+        },
+      ],
     });
   }
 
