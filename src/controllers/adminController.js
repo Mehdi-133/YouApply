@@ -9,6 +9,7 @@ class AdminController {
 
       res.render("admin/index", {
         offers,
+        currentPage: "admin",
       });
     } catch (error) {
       console.error("Error loading admin offers:", error);
@@ -73,6 +74,7 @@ class AdminController {
       }
       res.render("offer-form/index", {
         offer,
+        currentPage: "admin",
       });
     } catch (error) {
       console.error("cant edit this offer", error);

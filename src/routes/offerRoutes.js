@@ -12,4 +12,5 @@ offerRoutes.get("/offers/:id/edit", adminController.edit);
 offerRoutes.post("/offers/:id/edit" , adminController.update)
 offerRoutes.delete("/offers/:id" , adminController.delete)
 
+
 export default offerRoutes;
