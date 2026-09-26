@@ -21,6 +21,20 @@ class OfferController {
     }
   }
 
+  async followed(req, res) {
+    try {
+      const offers = await OfferRepo.findAll();
+
+      res.render("offers/followed", {
+        offers,
+        currentPage: "followed-offers",
+      });
+    } catch (error) {
+      console.error("Error loading followed offers:", error);
+      res.status(500).send("Internal server error");
+    }
+  }
+
   async show(req , res ){
     try{
 
