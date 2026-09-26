@@ -13,6 +13,7 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 
 app.use(express.static("public"));
+app.use("/js", express.static("js"));
 
 app.use(urlencoded({ extended: true }));
 

@@ -1,31 +1,34 @@
-import { getData } from "./data.js";
-import { disply_offers } from "./render.js";
 import { getFollowedOffers } from "./storage.js";
-import { filterByContract } from "./filters.js";
 
 let selectedContract = "all";
 
-async function displayFollowedOffers() {
-  const offersList = document.querySelector("#Offers_List");
-  offersList.innerHTML = "";
+const offerCards = document.querySelectorAll(".offer-card");
+const contractTabs = document.querySelectorAll(".contract-tab");
+const emptyState = document.querySelector("#empty-followed-offers");
 
-  const offers = await getData();
-  const followedIds = getFollowedOffers() || [];
+function displayFollowedOffers() {
+  const followedIds = getFollowedOffers();
+  let visibleOffers = 0;
 
-  const followedOffers = offers
-    .filter((offer) => followedIds.includes(Number(offer.id)))
-    .filter((offer) => filterByContract(offer, selectedContract));
+  offerCards.forEach((card) => {
+    const offerId = Number(card.dataset.offerId);
+    const isFollowed = followedIds.includes(offerId);
+    const matchesContract =
+      selectedContract === "all" || card.dataset.contract === selectedContract;
+    const shouldShow = isFollowed && matchesContract;
 
-  const emptyState = document.querySelector("#empty-followed-offers");
-  emptyState.classList.toggle("hidden", followedOffers.length > 0);
+    card.classList.toggle("hidden", !shouldShow);
 
-  disply_offers(followedOffers);
+    if (shouldShow) {
+      visibleOffers += 1;
+    }
+  });
+
+  emptyState.classList.toggle("hidden", visibleOffers > 0);
 }
 
-const contractTabs = document.querySelectorAll(".contract-tab");
-
 contractTabs.forEach((tab) => {
-  tab.addEventListener("click", function () {
+  tab.addEventListener("click", () => {
     selectedContract = tab.dataset.contract;
 
     contractTabs.forEach((btn) => {
@@ -38,5 +41,7 @@ contractTabs.forEach((tab) => {
     displayFollowedOffers();
   });
 });
+
+document.addEventListener("followedOffersChanged", displayFollowedOffers);
 
 displayFollowedOffers();

@@ -21,8 +21,8 @@
         Trouver une offre
       </a>
 
-      <a href="offer-suivies.html"
-        class="hover:text-slate-900 flex items-center gap-2">
+      <a href="/followed-offers"
+        class="flex items-center gap-2 <%= activePage === 'followed-offers' ? 'bg-blue-50 text-blue-700 px-4 py-2 rounded-lg' : 'hover:text-slate-900' %>">
         Offres suivies
       </a>
 
@@ -122,8 +122,8 @@
       </a>
 
       <a
-        href="offer-suivies.html"
-        class="text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-lg font-medium flex items-center justify-between">
+        href="/followed-offers"
+        class="flex items-center justify-between <%= activePage === 'followed-offers' ? 'bg-blue-50 text-blue-700 px-4 py-3 rounded-lg font-medium' : 'text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-lg font-medium' %>">
         Offres suivies
       </a>
 
