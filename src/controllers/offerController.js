@@ -21,6 +21,23 @@ class OfferController {
     }
   }
 
+  async show(req , res ){
+    try{
+
+      const showDetails = await OfferRepo.findById(req.params.id);
+      if (!showDetails) {
+        return res.status(404).send("not found")
+      }
+      res.render("offers/show" , {
+        showDetails: showDetails,
+      }) 
+
+    }catch(error){
+      console.error("offer details cant open" , error);
+      res.status(500).send("server error ")
+    }
+  }
+
   async new(req, res) {
     try {
       const technologies = await TechnologyRepo.findAll();
@@ -34,5 +51,7 @@ class OfferController {
       res.status(500).send(" server error");
     }
   }
+
+
 }
 export default new OfferController();
