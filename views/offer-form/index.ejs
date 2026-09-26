@@ -206,37 +206,6 @@
                                     class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                             </div>
                         </div>
-                        <!-- Rythme alternance -->
-                        <div>
-                            <label for="schedule"
-                                class="block text-sm font-semibold text-slate-800 mb-2">Rythme
-                                école / entreprise <span
-                                    class="text-red-500">*</span></label>
-                            <div class="relative">
-                                <select id="schedule" name="schedule" required
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl pl-4 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white appearance-none cursor-pointer transition-all">
-                                    <option value>Sélectionner un
-                                        rythme</option>
-                                    <option value="3j Entreprise / 2j École">3j
-                                        Entreprise / 2j École</option>
-                                    <option value="1 Semaine / 1 Semaine">1
-                                        Semaine / 1 Semaine</option>
-                                    <option value="3 Semaines / 1 Semaine">3
-                                        Semaines / 1 Semaine</option>
-                                    <option value="Autre">Autre</option>
-                                </select>
-                                <div
-                                    class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
-                                    <svg class="w-4 h-4" fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"><path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M19 9l-7 7-7-7"></path></svg>
-                                </div>
-                            </div>
-                        </div>
                         <div
                             class="md:col-span-2 border-t border-slate-100 pt-6 mt-1">
                             <h3
@@ -264,48 +233,6 @@
                                     "remote" ? "selected" : ""
                                     %>>Télétravail</option>
                             </select>
-                        </div>
-                        <div>
-                            <label for="team_size"
-                                class="block text-sm font-semibold text-slate-800 mb-2">Taille
-                                de l'équipe</label>
-                            <input id="team_size" name="team_size" type="text"
-                                placeholder="ex. 24 développeurs"
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                        </div>
-                        <div>
-                            <label for="work_method"
-                                class="block text-sm font-semibold text-slate-800 mb-2">Méthode
-                                de travail</label>
-                            <input id="work_method" name="work_method"
-                                type="text" placeholder="ex. Agile / Scrum"
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                        </div>
-                        <div>
-                            <label for="remote_policy"
-                                class="block text-sm font-semibold text-slate-800 mb-2">Politique
-                                de télétravail</label>
-                            <input id="remote_policy" name="remote_policy"
-                                type="text" placeholder="ex. 2 jours / semaine"
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                        </div>
-                        <div>
-                            <label for="work_address"
-                                class="block text-sm font-semibold text-slate-800 mb-2">Adresse
-                                du lieu de travail</label>
-                            <input id="work_address" name="work_address"
-                                type="text"
-                                placeholder="ex. 42 rue de la République, 69002 Lyon"
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label for="access_info"
-                                class="block text-sm font-semibold text-slate-800 mb-2">Accès
-                                et transports</label>
-                            <input id="access_info" name="access_info"
-                                type="text"
-                                placeholder="ex. Métro A, arrêt Cordeliers"
-                                class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
                         </div>
                     </div>
                 </section>
@@ -381,7 +308,6 @@
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"><%= offer?.profile || '' %></textarea>
                         </div>
 
-                        <!-- Arrays in offers.json are represented by groups of checkboxes. -->
                         <fieldset
                             class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 md:p-5">
                             <legend
@@ -391,84 +317,13 @@
                                 les technologies utiles pour ce poste.</p>
                             <div class="flex flex-wrap gap-2">
                                 <% technologies.forEach((technology) => { %>
-
-                                <% const isChecked = offer?.technologies?.some(
-                                (assignedTechnologies => assignedTechnologies.id
-                                === technology.id)
-                                ) %>
                                 <label class="offer-choice"><input
                                         type="checkbox" name="technologies"
                                         value="<%= technology.id %>"
-                                        <%=isChecked ? "checked" : "" %>
-
+                                        <%=offer?.technologies?.some((assignedTechnology) => assignedTechnology.id === technology.id) ? "checked" : "" %>
                                     class="sr-only"><span><%= technology.name
                                         %></span></label>
                                 <% }) %>
-                            </div>
-                        </fieldset>
-                        <fieldset
-                            class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 md:p-5">
-                            <legend
-                                class="px-1 text-sm font-semibold text-slate-800">Qualités
-                                personnelles</legend>
-                            <p class="text-xs text-slate-500 mb-4">Choisissez
-                                les qualités que vous recherchez.</p>
-                            <div class="flex flex-wrap gap-2">
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Adaptabilité"
-                                        class="sr-only"><span>Adaptabilité</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Analyse"
-                                        class="sr-only"><span>Analyse</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Autonomie"
-                                        class="sr-only"><span>Autonomie</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Collaboration"
-                                        class="sr-only"><span>Collaboration</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Communication"
-                                        class="sr-only"><span>Communication</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Créativité"
-                                        class="sr-only"><span>Créativité</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Curiosité"
-                                        class="sr-only"><span>Curiosité</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Curiosité technique"
-                                        class="sr-only"><span>Curiosité
-                                        technique</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Esprit d'équipe"
-                                        class="sr-only"><span>Esprit
-                                        d'équipe</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Organisation"
-                                        class="sr-only"><span>Organisation</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Proactivité"
-                                        class="sr-only"><span>Proactivité</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Rigueur"
-                                        class="sr-only"><span>Rigueur</span></label>
-                                <label class="offer-choice"><input
-                                        type="checkbox" name="soft_skills"
-                                        value="Souci du détail"
-                                        class="sr-only"><span>Souci du
-                                        détail</span></label>
                             </div>
                         </fieldset>
                     </div>
@@ -580,34 +435,6 @@
                             </div>
                         </div>
 
-                        <div
-                            class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-                            <div>
-                                <label for="mission_duration"
-                                    class="block text-sm font-semibold text-slate-800 mb-2">Catégorie
-                                    de durée <span
-                                        class="text-red-500">*</span></label>
-                                <select id="mission_duration"
-                                    name="mission_duration" required
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white cursor-pointer transition-all">
-                                    <option value>Sélectionner une
-                                        catégorie</option>
-                                    <option value="1-2">1 à 2 mois</option>
-                                    <option value="3-6">3 à 6 mois</option>
-                                    <option value="1-year">1 an</option>
-                                    <option value="2-years">2 ans</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="reference"
-                                    class="block text-sm font-semibold text-slate-800 mb-2">Référence
-                                    de l'offre</label>
-                                <input id="reference" name="reference"
-                                    type="text" placeholder="ex. STG-2025-001"
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                            </div>
-                        </div>
-
                         <div class="border-t border-slate-100 pt-6">
                             <h3 class="text-sm font-bold text-slate-900">Contact
                                 et candidatures</h3>
@@ -641,67 +468,6 @@
                             <p class="text-xs text-slate-500 mt-2">Les CV et
                                 lettres de motivation vous seront directement
                                 adressés sans intermédiaire.</p>
-                        </div>
-
-                        <div
-                            class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-                            <div>
-                                <label for="recruiter_name"
-                                    class="block text-sm font-semibold text-slate-800 mb-2">Nom
-                                    du recruteur <span
-                                        class="text-red-500">*</span></label>
-                                <input id="recruiter_name" name="recruiter_name"
-                                    type="text" required
-                                    placeholder="ex. Camille Martin"
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                            </div>
-                            <div>
-                                <label for="recruiter_role"
-                                    class="block text-sm font-semibold text-slate-800 mb-2">Fonction
-                                    du recruteur</label>
-                                <input id="recruiter_role" name="recruiter_role"
-                                    type="text"
-                                    placeholder="ex. Responsable recrutement Tech"
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                            </div>
-                            <div>
-                                <label for="response_time"
-                                    class="block text-sm font-semibold text-slate-800 mb-2">Délai
-                                    de réponse estimé</label>
-                                <input id="response_time" name="response_time"
-                                    type="text"
-                                    placeholder="ex. Sous 5 jours ouvrés"
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all">
-                            </div>
-                        </div>
-
-                        <div class="border-t border-slate-100 pt-6">
-                            <h3
-                                class="text-sm font-bold text-slate-900">Avantages</h3>
-                            <p class="text-xs text-slate-500 mt-1">Ces
-                                informations aident les candidats à se
-                                projeter.</p>
-                        </div>
-                        <div
-                            class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-                            <div>
-                                <label for="health_insurance"
-                                    class="block text-sm font-semibold text-slate-800 mb-2">Couverture
-                                    santé</label>
-                                <textarea id="health_insurance"
-                                    name="health_insurance" rows="2"
-                                    placeholder="ex. Mutuelle prise en charge à 60%."
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
-                            </div>
-                            <div>
-                                <label for="transport_and_meals"
-                                    class="block text-sm font-semibold text-slate-800 mb-2">Transport
-                                    et repas</label>
-                                <textarea id="transport_and_meals"
-                                    name="transport_and_meals" rows="2"
-                                    placeholder="ex. Transport à 50% et titres-restaurant."
-                                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:bg-white transition-all resize-none"></textarea>
-                            </div>
                         </div>
 
                         <!-- Legal Alert Block -->
