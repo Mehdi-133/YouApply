@@ -132,6 +132,10 @@
                     <!-- Mobile Filter Toggle Button -->
                     <div
                         id="filter-toggle-btn"
+                        role="button"
+                        tabindex="0"
+                        aria-controls="filter-content"
+                        aria-expanded="false"
                         class="lg:hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex items-center justify-between cursor-pointer active:scale-[0.99] hover:border-blue-200 hover:shadow-md transition-all duration-200">
 
                         <div
@@ -264,6 +268,34 @@
                                     <div
                                         id="work-mode-filters"
                                         class="space-y-4">
+                                        <label
+                                            class="flex items-center gap-3 cursor-pointer">
+                                            <input type="checkbox"
+                                                name="work_mode"
+                                                value="hybride"
+                                                class="w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 accent-blue-700">
+                                            <span
+                                                class="text-sm text-slate-700">Hybride</span>
+                                        </label>
+                                        <label
+                                            class="flex items-center gap-3 cursor-pointer">
+                                            <input type="checkbox"
+                                                name="work_mode"
+                                                value="remote"
+                                                class="w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 accent-blue-700">
+                                            <span
+                                                class="text-sm text-slate-700">Télétravail
+                                                100%</span>
+                                        </label>
+                                        <label
+                                            class="flex items-center gap-3 cursor-pointer">
+                                            <input type="checkbox"
+                                                name="work_mode"
+                                                value="presentiel"
+                                                class="w-5 h-5 text-blue-700 bg-white border-slate-300 rounded focus:ring-blue-700 accent-blue-700">
+                                            <span
+                                                class="text-sm text-slate-700">Présentiel</span>
+                                        </label>
                                     </div>
 
                                 </fieldset>
@@ -287,6 +319,72 @@
                                     <div
                                         id="technology-filters"
                                         class="grid grid-cols-2 gap-y-4 gap-x-2">
+                                        <label
+                                            class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                name="technologies" value="HTML"
+                                                class="accent-blue-700">
+                                            <span
+                                                class="text-sm text-slate-700">HTML</span>
+                                        </label>
+                                        <label
+                                            class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                name="technologies" value="CSS"
+                                                class="accent-blue-700">
+                                            <span
+                                                class="text-sm text-slate-700">CSS</span>
+                                        </label>
+                                        <label
+                                            class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                name="technologies"
+                                                value="JavaScript"
+                                                class="accent-blue-700">
+                                            <span
+                                                class="text-sm text-slate-700">JavaScript</span>
+                                        </label>
+                                        <label
+                                            class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                name="technologies" value="React"
+                                                class="accent-blue-700">
+                                            <span
+                                                class="text-sm text-slate-700">React</span>
+                                        </label>
+                                        <label
+                                            class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                name="technologies"
+                                                value="Node.js"
+                                                class="accent-blue-700">
+                                            <span
+                                                class="text-sm text-slate-700">Node.js</span>
+                                        </label>
+                                        <label
+                                            class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                name="technologies" value="MySQL"
+                                                class="accent-blue-700">
+                                            <span
+                                                class="text-sm text-slate-700">MySQL</span>
+                                        </label>
+                                        <label
+                                            class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                name="technologies" value="Git"
+                                                class="accent-blue-700">
+                                            <span
+                                                class="text-sm text-slate-700">Git</span>
+                                        </label>
+                                        <label
+                                            class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                name="technologies" value="Figma"
+                                                class="accent-blue-700">
+                                            <span
+                                                class="text-sm text-slate-700">Figma</span>
+                                        </label>
                                     </div>
 
                                 </fieldset>
@@ -301,6 +399,22 @@
                                     <div
                                         id="duration-filters"
                                         class="flex flex-wrap gap-2">
+                                        <button type="button"
+                                            class="duration-filter px-4 py-2 text-xs font-medium bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200">
+                                            1 à 2 mois
+                                        </button>
+                                        <button type="button"
+                                            class="duration-filter px-4 py-2 text-xs font-medium bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200">
+                                            3 à 6 mois
+                                        </button>
+                                        <button type="button"
+                                            class="duration-filter px-4 py-2 text-xs font-medium bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200">
+                                            1 an
+                                        </button>
+                                        <button type="button"
+                                            class="duration-filter px-4 py-2 text-xs font-medium bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200">
+                                            2 ans
+                                        </button>
                                     </div>
 
                                 </fieldset>
@@ -474,6 +588,7 @@
 
         <!-- Frontend JavaScript -->
         <script type="module" src="/js/follow.js"></script>
+        <script type="module" src="/js/filter-dropdown.js"></script>
         <script type="module" src="/js/burger-menu.js"></script>
 
     </body>
