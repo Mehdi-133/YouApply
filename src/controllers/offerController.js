@@ -6,13 +6,23 @@ import TechnologyRepo from "../repositories/technologyRepository.js";
 class OfferController {
   async index(req, res) {
     try {
-      const offers = await OfferRepo.findAll();
+      const { city, contract, technology, search, sort } = req.query;
+      const filters = {
+        city,
+        contract,
+        technology,
+        search,
+        sort,
+      };
+
+      const offers = await OfferRepo.findAll(filters);
 
       console.log(offers.map((offer) => offer.toJSON()));
 
       res.render("offers/index", {
         offers: offers,
         currentPage: "offers",
+        selectedContract: contract || "all",
       });
     } catch (error) {
       console.error("error:", error);
@@ -35,20 +45,18 @@ class OfferController {
     }
   }
 
-  async show(req , res ){
-    try{
-
+  async show(req, res) {
+    try {
       const showDetails = await OfferRepo.findById(req.params.id);
       if (!showDetails) {
-        return res.status(404).send("not found")
+        return res.status(404).send("not found");
       }
-      res.render("offers/show" , {
+      res.render("offers/show", {
         showDetails: showDetails,
-      }) 
-
-    }catch(error){
-      console.error("offer details cant open" , error);
-      res.status(500).send("server error ")
+      });
+    } catch (error) {
+      console.error("offer details cant open", error);
+      res.status(500).send("server error ");
     }
   }
 
@@ -65,7 +73,5 @@ class OfferController {
       res.status(500).send(" server error");
     }
   }
-
-
 }
 export default new OfferController();

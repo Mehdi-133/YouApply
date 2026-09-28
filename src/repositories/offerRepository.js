@@ -1,12 +1,46 @@
+import { Op } from "sequelize";
 import { Company, Offer, Technology } from "../models/index.js";
 
 class OfferRepo {
-  async findAll() {
+  async findAll(filters = {}) {
+    const where = {};
+    if (filters.city) {
+      where.location = filters.city;
+    }
+    if (filters.contract) {
+      where.opp_type = filters.contract;
+    }
+    if (filters.search) {
+      where[Op.or] = [
+        {
+          job_title: {
+            [Op.like]: `%${filters.search}%`,
+          },
+        },
+        {
+          location: {
+            [Op.like]: `%${filters.search}%`,
+          },
+        },
+      ];
+    }
     return await Offer.findAll({
-      include: {
-        model: Company,
-        as: "company",
-      },
+      where,
+      include: [
+        {
+          model: Company,
+          as: "company",
+        },
+        {
+          model: Technology,
+          as: "technologies",
+          where: filters.technology ? { name: filters.technology } : undefined,
+          required: Boolean(filters.technology),
+          through: {
+            attributes: [],
+          },
+        },
+      ],
 
       order: [["published_at", "DESC"]],
     });
