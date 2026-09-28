@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import { Company, Offer, Technology } from "../models/index.js";
 
 class OfferRepo {
@@ -12,7 +13,8 @@ class OfferRepo {
           job_title: {
             [Op.like]: `%${filters.search}%`,
           },
-
+        },
+        {
           location: {
             [Op.like]: `%${filters.search}%`,
           },
