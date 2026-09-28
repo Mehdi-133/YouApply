@@ -1,8 +1,13 @@
 import { Company, Offer, Technology } from "../models/index.js";
 
 class OfferRepo {
-  async findAll() {
+  async findAll(filters = {}) {
+    const where = {}
+    if (filters.city) {
+      where.location = filters.city
+    }
     return await Offer.findAll({
+      where,
       include: {
         model: Company,
         as: "company",
