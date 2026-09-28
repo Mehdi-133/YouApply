@@ -13,12 +13,13 @@ class AdminController {
       });
     } catch (error) {
       console.error("Error loading admin offers:", error);
-      res.status(500).send("server error");
+      res.status(404).render("/errors/404");
     }
   }
 
   async create(req, res) {
     try {
+      //  throw new Error("test")
       let company = await CompanyRepo.findByName(req.body.company);
 
       const technologyIds = req.body.technologies
@@ -58,7 +59,9 @@ class AdminController {
       res.redirect("/offers");
     } catch (error) {
       console.error("Error creating offer:", error);
-      res.status(500).send("Server error");
+      return res.status(500).render("errors/500", {
+        currentPage: null,
+      });
     }
   }
 
@@ -70,7 +73,7 @@ class AdminController {
       console.log(offer);
 
       if (!offer) {
-        return res.status(404).send("Offer not found");
+        return res.status(404).render("/errors/404");
       }
 
       const technologies = await TechnologyRepo.findAll();
@@ -81,7 +84,9 @@ class AdminController {
       });
     } catch (error) {
       console.error("cant edit this offer", error);
-      res.status(500).send("server error");
+      return res.status(500).render("errors/500", {
+        currentPage: null,
+      });
     }
   }
 
@@ -116,20 +121,24 @@ class AdminController {
       console.log(offerData);
 
       if (!offer) {
-        return res.status(404).send("Offer not found");
+        return res.status(404).render("/errors/404");
       }
       await offer.setTechnologies(technologyIds);
 
       const company = await CompanyRepo.update(offer.company_id, companyData);
 
       if (!company) {
-        return res.status(404).send("Company not found");
+        return res.status(500).render("errors/500", {
+          currentPage: null,
+        });
       }
 
       res.redirect("/admin");
     } catch (error) {
       console.error("error updating offer:", error);
-      res.status(500).send("Server error");
+      return res.status(500).render("errors/500", {
+        currentPage: null,
+      });
     }
   }
 
@@ -138,13 +147,15 @@ class AdminController {
       const deletedOffer = await OfferRepo.delete(req.params.id);
 
       if (!deletedOffer) {
-        return res.status(404).send(" not found");
+        return res.status(404).render("/errors/404");
       }
 
       res.redirect("/admin");
     } catch (error) {
       console.error("Offer not deleted:", error);
-      res.status(500).send("Server error");
+      return res.status(500).render("errors/500", {
+        currentPage: null,
+      });
     }
   }
 }

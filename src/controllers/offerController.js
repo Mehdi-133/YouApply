@@ -27,7 +27,7 @@ class OfferController {
     } catch (error) {
       console.error("error:", error);
 
-      res.status(500).send("Internal server error");
+      res.status(404).render("/errors/404");
     }
   }
 
@@ -41,7 +41,9 @@ class OfferController {
       });
     } catch (error) {
       console.error("Error loading followed offers:", error);
-      res.status(500).send("Internal server error");
+      return res.status(500).render("errors/500", {
+        currentPage: null,
+      });
     }
   }
 
@@ -56,7 +58,7 @@ class OfferController {
       });
     } catch (error) {
       console.error("offer details cant open", error);
-      res.status(500).send("server error ");
+      res.status(404).render("/errors/404");
     }
   }
 
@@ -70,7 +72,7 @@ class OfferController {
       });
     } catch (error) {
       console.error(" loading error ", error);
-      res.status(500).send(" server error");
+      res.status(404).render("/errors/404");
     }
   }
 }

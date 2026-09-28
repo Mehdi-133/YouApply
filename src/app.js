@@ -6,7 +6,6 @@ import methodOverride from "method-override";
 const app = express();
 const PORT = 3000;
 
-
 app.use(methodOverride("_method"));
 
 app.set("view engine", "ejs");
@@ -18,6 +17,12 @@ app.use("/js", express.static("js"));
 app.use(urlencoded({ extended: true }));
 
 app.use("/", offerRoutes);
+
+app.use((req, res) => {
+  res.status(404).render("errors/404", {
+    currentPage: null,
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

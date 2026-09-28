@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+        <%- include("../partial/head") %>
+        <title>Page introuvable - YouApply</title>
+    </head>
+
+    <body class="bg-slate-50 min-h-screen flex flex-col">
+
+        <%- include("../partial/header", { currentPage }) %>
+
+        <main class="flex-grow flex items-center justify-center px-4">
+            <div class="text-center">
+
+                <p class="text-blue-700 font-bold text-lg mb-2">404</p>
+
+                <h1 class="text-3xl font-bold text-slate-900 mb-3">
+                    Page introuvable
+                </h1>
+
+                <p class="text-slate-500 mb-6">
+                    La page ou l'offre que vous recherchez n'existe pas.
+                </p>
+
+                <a
+                    href="/offers"
+                    class="inline-flex px-5 py-3 bg-blue-700 text-white rounded-xl hover:bg-blue-900 transition-colors">
+                    Retour aux offres
+                </a>
+
+            </div>
+        </main>
+
+        <%- include("../partial/footer") %>
+
+    </body>
+</html>
