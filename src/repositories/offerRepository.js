@@ -7,6 +7,9 @@ class OfferRepo {
     if (filters.city) {
       where.location = filters.city;
     }
+    if (filters.contract) {
+      where.opp_type = filters.contract;
+    }
     if (filters.search) {
       where[Op.or] = [
         {

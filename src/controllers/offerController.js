@@ -22,6 +22,7 @@ class OfferController {
       res.render("offers/index", {
         offers: offers,
         currentPage: "offers",
+        selectedContract: contract || "all",
       });
     } catch (error) {
       console.error("error:", error);
